@@ -1,11 +1,11 @@
 obj-m += char.o
 
 all build:
-		make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
+		make -C /lib/modules/$(shell uname -r)/build M=$(shell pwd) modules
 		gcc -o user user.c
 
 load:
-		@sudo insmod $(PWD)/char.ko
+		@sudo insmod $(shell pwd)/char.ko
 		@sudo chown $(USER):$(USER) /dev/chardev-*
 
 unload:
@@ -17,5 +17,5 @@ reload:
 		make load
 
 clean:
-		@make -C /lib/modules/$(shell uname -r)/build M=$(PWD) clean
+		@make -C /lib/modules/$(shell uname -r)/build M=$(shell pwd) clean
 		-rm -rf user
